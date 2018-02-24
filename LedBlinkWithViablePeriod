@@ -1,0 +1,41 @@
+#define TASK_PERIOD 100
+#define LED_ON_TIME 2000
+
+char LedSwitchTimer = 0;
+bool IsLedOn = false;
+
+void setup() {
+  // put your setup code here, to run once:
+  pinMode(13, OUTPUT);
+}
+
+void ControlLed(){  
+  if(LedSwitchTimer >= LED_ON_TIME/TASK_PERIOD){
+    LedSwitchTimer = 0;
+    if(IsLedOn == false){
+      IsLedOn = true;
+      }
+    else{
+      IsLedOn = false;
+      }
+  }
+
+  if(IsLedOn){
+    digitalWrite(13,  HIGH);
+    }
+  else{
+    digitalWrite(13,  LOW);
+    }
+  LedSwitchTimer++;
+}
+
+void ArduinoAppMain(){
+  ControlLed();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  ArduinoAppMain();
+  delay(TASK_PERIOD);
+}
+
